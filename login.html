@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="header-menu">
+    <h2 class='menu'>登录</h2>
+    <h2 hidden class="showInfo ahidden">你好</h2>
+    <button hidden type="button" name="button" class="btn_hidden">注销</button>
+  </div>
+
+
+  <form method="post" onsubmit="return false">
+    <label for="">用户名</label>
+    <input type="text" name="" value="" class="username">
+    <br>
+    <label for="">密码</label>
+    <input type="password" name="" value="" class="password">
+    <br>
+    <button type="submit" name="" class="login">登录</button>
+  </form>
+
+  <script src="js/jquery.min.js"></script>
+  <script>
+
+    //封装js文件时习惯使用IIFE进行包装，保证不污染全局变量
+    // 同时在IIFE之前添加；空语句，保证IIFE能够独立运行，不会受到其他js文件影响
+    ;(function() {
+      //注销事件
+      $('.header-menu').find('.btn_hidden').click(function() {
+        $('.header-menu').find('.menu').css('display', 'inline-block');
+        $('.header-menu').find('.ahidden').css('display', 'none');
+        $('.header-menu').find('.ahidden').html('你好！');
+        $('.header-menu').find('.btn_hidden').css('display', 'none');
+      });
+
+      $('.login').click(function() {
+        var userName = $('.username').val();
+        var passWord = $('.password').val();
+        //判空操作
+        if (userName.trim().length == 0 || passWord.trim().length == 0) {
+          alert('用户名或密码不能为空！请检查后重新输入！');
+          return;
+        }
+        //发送ajax请求去后台
+        $.ajax({
+          type: 'post',
+          url: 'php/loginFile.php',
+          dataType: 'json',
+          data: {
+            uname: userName,
+            upass: passWord
+          },
+          success: function(res) {
+            switch (res.infoCode) {
+              case 0:
+                //需要做的是变更页面结构
+                alert("登录成功");
+                $('.header-menu').find('.menu').css('display', 'none');
+                $('.header-menu').find('.ahidden').css('display', 'inline-block');
+                $('.header-menu').find('.ahidden').html('欢迎回来！' + res.showUserName);
+                $('.header-menu').find('.btn_hidden').css('display', 'inline-block');
+                break;
+              case 1:
+                alert('登录失败！用户名或密码错误！');
+                break;
+              case 2:
+                alert('登录失败！网络连接错误！');
+                break;
+              case 3:
+                alert('登录失败！该用户名不存在！');
+                break;
+              default:
+                alert('未知错误！');
+            }
+          },
+          error: function(e) {
+            console.log(e);
+          }
+        });
+        //发送请求完毕后，初始化输入框，等待下一次操作。
+        $('.username').val('');
+        $('.password').val('');
+      });
+    })();
+  </script>
+
+</body>
+
+</html>
