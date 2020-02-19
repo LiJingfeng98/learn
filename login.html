@@ -28,10 +28,10 @@
 
   <script src="js/jquery.min.js"></script>
   <script>
-
     //封装js文件时习惯使用IIFE进行包装，保证不污染全局变量
     // 同时在IIFE之前添加；空语句，保证IIFE能够独立运行，不会受到其他js文件影响
-    ;(function() {
+    ;
+    (function() {
       //注销事件
       $('.header-menu').find('.btn_hidden').click(function() {
         $('.header-menu').find('.menu').css('display', 'inline-block');
@@ -40,6 +40,7 @@
         $('.header-menu').find('.btn_hidden').css('display', 'none');
       });
 
+      //登录事件
       $('.login').click(function() {
         var userName = $('.username').val();
         var passWord = $('.password').val();

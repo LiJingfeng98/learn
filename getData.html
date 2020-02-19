@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <table class="table" border="1">
+    <tr>
+      <th>UserName</th>
+      <th>Password</th>
+    </tr>
+
+  </table>
+
+
+
+  <script src="js/jquery.min.js"></script>
+  <script type="text/javascript">
+    ;
+    (function() {
+      //直接进入页面后，自动发送ajax请求，等待数据回传之后直接加载到页面之上
+      $.ajax({
+        type: 'get',
+        url: 'php/getData.php',
+        dataType: 'json',
+        success: function(res) {
+          //拼接html法
+          // var userInfoArr = res.userInfo;
+          // var innerHTML = '<tr>'+
+          //   '<th>UserName</th>'+
+          //   '<th>Password</th>'+
+          // '</tr>';
+          // for (var i = 0; i < userInfoArr.length; i++) {
+          //   innerHTML +=
+          //     '<tr>'+
+          //       '<td>'+userInfoArr[i].un+'</td><td>'+userInfoArr[i].up+'</td>'+
+          //     '</tr>';
+          // }
+          // var table = document.querySelector('.table');
+          // table.innerHTML = innerHTML;
+
+          // 插入元素法
+          var userInfoArr = res.userInfo;
+          var table = document.querySelector('.table');
+          for (var i = 0; i < userInfoArr.length; i++) {
+            var newTr = document.createElement('tr')
+            newTr.className = 'tr';
+            table.appendChild(newTr);
+            // 内部td
+            var newtd1 = document.createElement('td');
+            newtd1.innerHTML = userInfoArr[i].un;
+            newTr.appendChild(newtd1);
+            var newtd2 = document.createElement('td');
+            newtd2.innerHTML = userInfoArr[i].up;
+            newTr.appendChild(newtd2);
+          }
+        },
+        error: function(e) {
+          var res = e.responseText;
+          alert(res);
+        }
+      });
+    })();
+  </script>
+
+
+</body>
+
+</html>
