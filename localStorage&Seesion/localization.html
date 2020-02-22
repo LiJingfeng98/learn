@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- storage操作 -->
+  <button class="localStorage">local存储</button>
+
+
+
+
+
+
+  <script type="text/javascript">
+    /*
+        1.数据本地化localStorage与sessionStorage
+        描述:在html5中提出了两种“替代"cookie的技巧
+            为localstorage和sessionStorage
+        说明:
+        localStorage是指数据旦被本地化后，只要用户不主动删除即永远存在
+        sessionStorage是指数据旦被本地化后，只要页面不关闭就不主动删除。
+                      而一旦浏览器关闭后数据即被自动删除。
+        语法:
+        写入: xxx.setItem('key', 'value' );
+        读取: xxx.getItem('key');
+        删除: xxx.removeItem('key');
+        */
+        document.querySelector('.localStorage').onclick = function(){
+          //localStorage
+          // localStorage.setItem('nickname','Len_QAQ');
+          // console. log( localStorage. getItem('nickname' );
+          // localStorage.removeItem('nickname');
+
+          //sessionStorage
+          sessionStorage.setItem( 'userId', '1233211233321');
+
+        };
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

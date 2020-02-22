@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>读取本地cookie</button>
+  <script>
+    //总结
+    console.log(document.cookie);
+    /**
+     *  func  getCookieObj()  获取所有cookie的值并将其保存为对象的属性
+
+     ex：var cookieObj=getCookieObj();
+     cookieObj.name;
+     **/
+    function getCookieObj() {
+      var cookieObj = {},
+        cookieSplit = [],
+        // 以分号（;）分组
+        cookieArr = document.cookie.split(";");
+      for (var i = 0, len = cookieArr.length; i < len; i++)
+        if (cookieArr[i]) {
+          // 以等号（=）分组
+          cookieSplit = cookieArr[i].split("=");
+          // Trim() 是自定义的函数，用来删除字符串两边的空格
+          cookieObj[cookieSplit[0].trim()] = cookieSplit[1].trim();
+        }
+      return cookieObj;
+    }
+    console.log(getCookieObj().nickName);
+
+
+    /**
+     *  func  getCookie()  获取单个cookie的值
+     *  pram  cookieName  cookie的名称
+     ex：getCookie("name");
+     **/
+    function getCookie(cookieName) {
+      var cookieObj = {},
+        cookieSplit = [],
+        // 以分号（;）分组
+        cookieArr = document.cookie.split(";");
+      for (var i = 0, len = cookieArr.length; i < len; i++)
+        if (cookieArr[i]) {
+          // 以等号（=）分组
+          cookieSplit = cookieArr[i].split("=");
+          // Trim() 是自定义的函数，用来删除字符串两边的空格
+          cookieObj[cookieSplit[0].trim()] = cookieSplit[1].trim();
+        }
+      return cookieObj[cookieName];
+    }
+    console.log(getCookie("userId"));
+
+
+
+
+
+
+    // //1.当本地有多条cookie，如何读取
+    // document.querySelector('button').onclick = function() {
+    //   var cookie = document.cookie;
+    //   //处理cookie的办法
+    //   var cookiesArr = cookie.split(';');
+    //   var finalArr = [];
+    //   for (var i = 0; i < cookiesArr.length; i++) {
+    //     var obj = {};
+    //     var tempArr = cookiesArr[i].trim().split('=');
+    //     obj[tempArr[0]] = tempArr[1];
+    //     finalArr.push(obj);
+    //   }
+    //   console.log(finalArr);
+    // };
+
+
+    //2.当储存内容为非字符串的复杂结构，如何处理
+    // var info = {
+    //   peoName: 'frank',
+    //   peoAge: 18,
+    //   peoGender: ' male'
+    // };
+    // var cookieStr = JSON.stringify(info);
+    //
+    // var expires = new Date(new Date().getTime() + 3600*24*1000).toGMTString();
+    // document.cookie = 'userinfo='+cookieStr+';expires='+expires;
+
+    // console.log(document.cookie);
+    // var cookiesArr = cookie.split(';');
+    // var finalArr = [];
+    // for (var i = 0; i < cookiesArr.length; i++) {
+    //   var obj = {};
+    //   var tempArr = cookiesArr[i].trim().split('=');
+    //   obj[tempArr[0]] = tempArr[1];
+    //   finalArr.push(obj);
+    // }
+    // console.log(JSON.parse(finalArr[2].userinfo));
+    // };
+
+
+
+
+
+
+
+    // //后台写入cookie
+    // (function() {
+    //   var xhr = new XMLHttpRequest();
+    //   xhr.onreadystatechange = function(){
+    //     if (xhr.readyState == 4) {
+    //       if (xhr.status == 200) {
+    //         console.log(xhr.responseText);
+    //       }
+    //     }
+    //   };
+    //   var formData = new FormData();
+    //   formData.append('nickName', 'Len');
+    //   formData.append('userId', '10086');
+    //   //
+    //   xhr.open('post', 'cookie_tips.php', true);
+    //   xhr.send(formData);
+    // })();
+  </script>
+</body>
+
+</html>

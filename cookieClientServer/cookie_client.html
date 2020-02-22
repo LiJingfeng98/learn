@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    /*
+              数据持久化操作
+              类型：
+              1.cookie
+              2.localStorage
+              3.sessionStorage
+
+              cookie:
+              操作：前端：
+                写入cookie:document.cookie = 'key=value;expires=过期时间戳ms'；
+                读取cookie:console.log(document.cookie);
+                删除cookie:document.cookie = 'key=value;expires=当前时间戳+1'；
+
+              补充:前端操作cookie时，时间戳必须通过toGMTString()方法转化为标准时间才行
+
+            */
+    // 设置
+    // var expires = new Date(new Date().getTime() + 1000 * 1000).toGMTString();
+    // document.cookie = 'username = len;expires=' + expires;
+    //
+    // // 读取
+    // var tempArr = document.cookie.split('=');
+    // var tempObj = {};
+    // for (var i = 0; i < tempArr.length; i++) {
+    //   tempObj[tempArr[0]] = tempArr[1];
+    // }
+    // console.log(tempObj);
+    // console.log(tempObj.username);
+
+    // 删除
+    var expires = new Date(new Date().getTime() + 1).toGMTString();
+    document.cookie = 'username = len;expires=' + expires;
+  </script>
+
+</body>
+
+</html>
